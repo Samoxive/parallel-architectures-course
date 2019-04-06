@@ -11,7 +11,7 @@ typedef struct {
 
 const f64 CONST_E = 2.71828;
 const f64 CONST_PI = 3.14159;
-const i32 REPEAT_COUNT = 8192;
+const i32 REPEAT_COUNT = 512;
 
 f64 graph_function(f64 x) {
     return (3 * CONST_E * x * x * x) + (9 * x * x) - (7.14 * x);
@@ -61,6 +61,5 @@ int main(i32 argc, char** argv) {
         time_sum += last_result.time;
     }
 
-    printf("Result: %f\n%fms\n", last_result.result,
-           (time_sum * 1000) / REPEAT_COUNT);
+    printf("%fus\n", (time_sum * 1000000) / REPEAT_COUNT);
 }

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "common.h"
 
-const i32 REPEAT_COUNT = 2048;
+const i32 REPEAT_COUNT = 512;
 
 typedef struct {
     i32 x;
@@ -115,7 +115,7 @@ i32 main(i32 argc, char** argv) {
         time_sum += do_it(output, data);
     }
 
-    printf("%fns\n", (time_sum * 1000000) / REPEAT_COUNT);
+    printf("%fmicroseconds\n", (time_sum * 1000000) / REPEAT_COUNT);
     write_output_to_file(output, data);
 
     for (i32 i = 0; i < data->dim_y; i++) {

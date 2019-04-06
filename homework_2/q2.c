@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "common.h"
 
-const i32 REPEAT_COUNT = 128;
+const i32 REPEAT_COUNT = 512;
 const i32 ARRAY_SIZE = 8192;
 const i32 RECURSION_SIZE_LIMIT = 32;
 const i32 FILE_ARRAY_SIZE = 100000;
@@ -138,6 +138,6 @@ i32 main(i32 argc, char** argv) {
     }
 
     output_array_to_file(arr);
-    printf("%fms\n", (time_sum * 1000) / REPEAT_COUNT);
+    printf("%fus\n", (time_sum * 1000000) / REPEAT_COUNT);
     return 0;
 }

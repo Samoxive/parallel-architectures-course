@@ -9,8 +9,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic -Wextra -g")
 
 add_executable(q1 q1.c)
 target_link_libraries(q1 OpenMP::OpenMP_C)
-add_executable(q1_par q1_par.c)
-target_link_libraries(q1_par OpenMP::OpenMP_C)
 add_executable(q2 q2.c)
 target_link_libraries(q2 OpenMP::OpenMP_C)
 add_executable(q3 q3.c)

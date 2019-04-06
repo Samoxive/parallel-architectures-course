@@ -1,6 +1,7 @@
 #include <math.h>
 #include <omp.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "common.h"
 
 typedef struct {
@@ -32,9 +33,14 @@ integration_result do_it() {
 
     f64 sum = 0;
     f64 before = omp_get_wtime();
+
+#pragma omp parallel for reduction(+ : sum)
     for (i32 i = 0; i < rect_count; i++) {
-        sum += calc_rect(x1 + (increment_x * i), x1 + (increment_x * (i + 1)));
+        f64 local_result =
+            calc_rect(x1 + (increment_x * i), x1 + (increment_x * (i + 1)));
+        sum += local_result;
     }
+
     f64 after = omp_get_wtime();
     integration_result r;
     r.result = sum;
@@ -43,6 +49,11 @@ integration_result do_it() {
 }
 
 int main(i32 argc, char** argv) {
+    if (argc > 1) {
+        i32 thread_count = atoi(argv[1]);
+        omp_set_num_threads(thread_count);
+    }
+
     integration_result last_result;
     f64 time_sum = 0;
     for (i32 i = 0; i < REPEAT_COUNT; i++) {
@@ -52,5 +63,4 @@ int main(i32 argc, char** argv) {
 
     printf("Result: %f\n%fms\n", last_result.result,
            (time_sum * 1000) / REPEAT_COUNT);
-    return 0;
 }
